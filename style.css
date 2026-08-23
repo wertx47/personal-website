@@ -42,28 +42,28 @@ img {
 
 :root {
   /* --- Цвет: фон --- */
-  --color-bg: #08080B;              /* базовый фон — глубокий, почти чёрный графит */
-  --color-bg-secondary: #131319;    /* поверхности: карточки, header, footer */
-  --color-bg-elevated: #1C1C24;     /* hover / приподнятые поверхности */
+  --color-bg: #09090A;               /* базовый фон — нейтральный глубокий графит, без цветного оттенка */
+  --color-bg-secondary: #141416;     /* поверхности: карточки, header, footer */
+  --color-bg-elevated: #1D1D20;      /* hover / приподнятые поверхности */
 
   /* --- Цвет: текст --- */
-  --color-text-primary: #F4F3EF;
-  --color-text-secondary: #99989F;
-  --color-text-muted: #656470;
+  --color-text-primary: #F5F5F3;
+  --color-text-secondary: #9A9A9D;
+  --color-text-muted: #65656A;
 
-  /* --- Акцентный цвет (один основной) --- */
-  --color-accent: #7B6EF6;
-  --color-accent-strong: #9F8DFF;
-  --color-accent-dim: #4B3FAE;                       /* затемнённый оттенок акцента — для глубоких теней/фона */
-  --color-accent-glow: rgba(123, 110, 246, 0.4);
-  --color-accent-glow-soft: rgba(123, 110, 246, 0.16);
+  /* --- Акцентный цвет (один основной — приглушённый серебристо-стальной) --- */
+  --color-accent: #B7BCC6;
+  --color-accent-strong: #EAEBEE;
+  --color-accent-dim: #4E5158;                       /* затемнённый оттенок акцента — для глубоких теней/фона */
+  --color-accent-glow: rgba(235, 236, 240, 0.35);
+  --color-accent-glow-soft: rgba(235, 236, 240, 0.14);
 
   /* --- Границы --- */
   --color-border: rgba(255, 255, 255, 0.08);
   --color-border-strong: rgba(255, 255, 255, 0.16);
 
   /* --- Типографика --- */
-  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-display: 'Fraunces', 'Georgia', serif;
   --font-body: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
@@ -121,9 +121,9 @@ html::before {
   pointer-events: none;
   background:
     radial-gradient(38% 30% at 78% 8%,  var(--color-accent-glow) 0%, transparent 70%),
-    radial-gradient(30% 24% at 6% 28%,  rgba(123, 110, 246, 0.22) 0%, transparent 72%),
-    radial-gradient(22% 20% at 60% 78%, rgba(159, 141, 255, 0.14) 0%, transparent 75%),
-    radial-gradient(45% 35% at 90% 95%, rgba(75, 63, 174, 0.20) 0%, transparent 70%);
+    radial-gradient(30% 24% at 6% 28%,  rgba(220, 222, 228, 0.20) 0%, transparent 72%),
+    radial-gradient(22% 20% at 60% 78%, rgba(200, 202, 210, 0.13) 0%, transparent 75%),
+    radial-gradient(45% 35% at 90% 95%, rgba(160, 163, 172, 0.18) 0%, transparent 70%);
   filter: blur(60px);
   animation: driftGlow 26s ease-in-out infinite alternate;
 }
@@ -190,14 +190,15 @@ body {
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
+  font-optical-sizing: auto;
   line-height: var(--lh-heading);
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-weight: 560;
+  letter-spacing: -0.01em;
   margin: 0;
   color: var(--color-text-primary);
 }
 
-h1 { font-size: var(--fs-h1); font-weight: 700; letter-spacing: -0.035em; }
+h1 { font-size: var(--fs-h1); font-weight: 600; letter-spacing: -0.015em; }
 h2 { font-size: var(--fs-h2); }
 h3 { font-size: var(--fs-h3); font-weight: 500; }
 
@@ -210,6 +211,8 @@ p {
   position: relative;
   margin-bottom: var(--space-5);
   padding-top: var(--space-3);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
 }
 
 /* Единый графический мотив — короткая акцентная линия перед заголовком
@@ -222,6 +225,24 @@ p {
   width: 56px;
   height: 2px;
   background: linear-gradient(90deg, var(--color-accent), transparent);
+}
+
+/* Эйбрау — маленькая метка "номер секции / название" перед заголовком.
+   Не декоративная нумерация, а реальный указатель "где мы находимся"
+   в последовательности блоков лендинга. */
+.eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: none;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.eyebrow span {
+  color: var(--color-accent);
 }
 
 
@@ -325,25 +346,43 @@ button:focus-visible {
 }
 
 .logo {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.125rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.nav-links a {
+  color: var(--color-text-secondary);
+}
+
+.nav-links a:hover {
+  color: var(--color-accent-strong);
 }
 
 
 /* ==========================================================================
    9. HERO
-   Крупная типографика + собственный декоративный мотив (две тонкие
-   концентричные окружности разной глубины, blur и прозрачности),
-   привязанный к смысловому центру страницы — не к случайной точке.
+   Один цельный декоративный мотив — крупная полусфера на фоне, как
+   горизонт планеты: тёмный шар с мягким атмосферным свечением по кромке.
    ========================================================================== */
 
 .hero {
   position: relative;
-  min-height: 88vh;
+  min-height: 92vh;
   display: flex;
   align-items: center;
-  text-align: center;
+  text-align: left;
   padding-top: var(--space-6);
   padding-bottom: var(--space-6);
   overflow: hidden;
@@ -353,51 +392,147 @@ button:focus-visible {
   z-index: 1;
 }
 
-.hero::before,
-.hero::after {
-  content: '';
+/* «Горизонт планеты» — по референсу: огромный купол (кривизна почти
+   незаметна) с РОВНЫМ по всей дуге световым ободом. Свечение сделано
+   через box-shadow — он естественно повторяет форму окружности по всей
+   длине дуги, без "выгорания" по центру и затухания по краям. */
+.hero-horizon {
   position: absolute;
+  left: 50%;
+  top: 55%;
+  transform: translateX(-50%);
+  width: 155vw;
+  height: 155vw;
+  max-width: 2200px;
+  max-height: 2200px;
   border-radius: 50%;
-  border: 1px solid rgba(123, 110, 246, 0.28);
-  pointer-events: none;
   z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(circle closest-side at 50% 50%,
+    var(--color-bg) 0%,
+    #1a1a1d 55%,
+    #29292d 76%,
+    #35353a 92%,
+    #403f45 100%);
+  box-shadow:
+    0 0 40px 4px rgba(255, 255, 255, 0.5),
+    0 0 110px 30px rgba(232, 233, 238, 0.26),
+    0 0 240px 80px rgba(205, 207, 214, 0.12),
+    inset 0 0 36px 8px rgba(255, 255, 255, 0.32);
 }
 
-/* дальний контур — крупный, сильно смещён за край экрана, мягкий blur */
-.hero::before {
-  width: 62vw;
-  height: 62vw;
-  max-width: 780px;
-  max-height: 780px;
-  top: -22%;
-  right: -18%;
-  background: radial-gradient(circle at 35% 30%, rgba(123, 110, 246, 0.10), transparent 65%);
-  filter: blur(2px);
-}
-
-/* ближний контур — меньше, ниже, чуть контрастнее и резче: создаёт ощущение глубины */
-.hero::after {
-  width: 30vw;
-  height: 30vw;
-  max-width: 380px;
-  max-height: 380px;
-  bottom: -12%;
-  left: -8%;
-  border-color: rgba(159, 141, 255, 0.4);
-  background: radial-gradient(circle at 60% 40%, rgba(159, 141, 255, 0.08), transparent 70%);
+@media (max-width: 860px) {
+  .hero-horizon {
+    top: 58%;
+    width: 220vw;
+    height: 220vw;
+    box-shadow:
+      0 0 26px 3px rgba(255, 255, 255, 0.5),
+      0 0 70px 18px rgba(232, 233, 238, 0.26),
+      0 0 150px 50px rgba(205, 207, 214, 0.12),
+      inset 0 0 22px 6px rgba(255, 255, 255, 0.32);
+  }
 }
 
 .hero-title {
-  max-width: 16ch;
-  margin: 0 auto;
+  max-width: 14ch;
+  margin: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-subtitle {
-  max-width: 560px;
-  margin: var(--space-4) auto var(--space-5);
+  max-width: 520px;
+  margin: var(--space-4) 0 var(--space-5);
   font-size: var(--fs-body-lg);
   font-weight: 300;
   color: var(--color-text-secondary);
+}
+
+/* CTA в hero оформлен как отдельный типографический "label"-уровень —
+   третья ступень иерархии после display-заголовка и обычного текста */
+.hero .btn-primary {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Появление hero при загрузке страницы — заголовок, подзаголовок и кнопка
+   выходят по очереди с лёгким сдвигом снизу, полусфера проступает следом. */
+.hero-title,
+.hero-subtitle,
+.hero .btn-primary {
+  animation: heroReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-title { animation-delay: 0.05s; }
+.hero-subtitle { animation-delay: 0.22s; }
+.hero .btn-primary { animation-delay: 0.38s; }
+
+@keyframes heroReveal {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-title,
+  .hero-subtitle,
+  .hero .btn-primary {
+    animation: none;
+  }
+}
+
+
+/* ==========================================================================
+   9b. MARQUEE — бегущая строка между hero и услугами.
+   Единственный по-настоящему "громкий" акцент движения на странице —
+   всё остальное статично, поэтому одна лента не спорит с общей сдержанностью.
+   ========================================================================== */
+
+.marquee {
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  overflow: hidden;
+  padding: var(--space-3) 0;
+  background: linear-gradient(90deg, transparent, var(--color-accent-glow-soft) 50%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 32s linear infinite;
+}
+
+.marquee-track span {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-shrink: 0;
+  min-width: 100vw;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  padding-right: var(--space-3);
+  white-space: nowrap;
+}
+
+.marquee-track span i {
+  color: var(--color-accent);
+  font-style: normal;
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
 }
 
 
@@ -408,62 +543,95 @@ button:focus-visible {
    ========================================================================== */
 
 .services-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-3);
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  counter-reset: service;
 }
 
 .service-card {
-  background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-border);
-  padding: var(--space-4);
-  transition: border-color var(--transition-base), transform var(--transition-base), background-color var(--transition-base);
   position: relative;
-  overflow: hidden;
+  counter-increment: service;
+  display: grid;
+  grid-template-columns: 3.5rem 1fr auto;
+  align-items: baseline;
+  column-gap: var(--space-4);
+  padding: var(--space-4) var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(90deg, var(--color-accent-glow-soft), transparent 40%);
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  transition: background-size var(--transition-base), padding-left var(--transition-base);
+}
+
+.service-card:first-child {
+  border-top: 1px solid var(--color-border);
 }
 
 .service-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(160deg, var(--color-accent-glow-soft), transparent 55%);
-  opacity: 0;
-  transition: opacity var(--transition-base);
+  content: counter(service, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  transition: color var(--transition-base);
 }
 
 .service-card:hover {
-  border-color: var(--color-border-strong);
-  transform: translateY(-4px);
+  background-size: 100% 100%;
+  padding-left: var(--space-3);
 }
 
 .service-card:hover::before {
-  opacity: 1;
+  color: var(--color-accent-strong);
 }
 
-.service-card:nth-child(1) { border-radius: 22px 6px 22px 6px; }
-.service-card:nth-child(2) { border-radius: 6px 22px 6px 22px; margin-top: var(--space-5); }
-.service-card:nth-child(3) { border-radius: 22px 22px 6px 6px; margin-top: var(--space-2); }
-.service-card:nth-child(4) { border-radius: 6px 6px 22px 22px; margin-top: var(--space-6); }
-
 .service-title {
-  margin-bottom: var(--space-2);
+  grid-column: 2;
+  font-size: var(--fs-h3);
 }
 
 .service-desc {
-  margin-bottom: var(--space-3);
+  grid-column: 2;
+  grid-row: 2;
+  max-width: 52ch;
+  margin-top: var(--space-1);
 }
 
 .service-price {
+  grid-column: 3;
+  grid-row: 1;
   font-family: var(--font-mono);
-  color: var(--color-accent-strong);
+  color: var(--color-accent);
   letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
 
 /* ==========================================================================
    11. WHY ME
    ========================================================================== */
+
+.why-me {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Светящиеся «трубки» на фоне — по мотивам референса с абстрактной
+   графикой обоев. Компактные, у самого края секции, не спорят с текстом. */
+.why-me-decor {
+  position: absolute;
+  top: -4%;
+  right: -6%;
+  width: min(24vw, 320px);
+  height: 60%;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(3px);
+  opacity: 0.22;
+}
+
+.why-me .container {
+  z-index: 1;
+}
 
 .why-me-grid {
   display: grid;
@@ -481,17 +649,68 @@ button:focus-visible {
    Нумерация здесь осмысленна — это реальная последовательность этапов.
    ========================================================================== */
 
+.process-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* Фото-метафора: витки лестницы = витки процесса. Не иллюстрация буквально
+   "разработки", а образ, который задаёт настроение блоку — как статуя
+   Сизифа на референсе. Чёрно-белый режим + затемнение вписывает кадр
+   в общую графитовую палитру сайта. */
+.process-figure {
+  position: sticky;
+  top: var(--space-6);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border-strong);
+}
+
+.process-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.08) brightness(0.85);
+  transition: filter var(--transition-base);
+}
+
+.process-figure:hover img {
+  filter: grayscale(0.4) contrast(1.1) brightness(0.95);
+}
+
+.process-figcaption {
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--color-border);
+}
+
 .process-list {
   list-style: none;
   padding-left: 0;
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-6);
   counter-reset: step;
+  position: relative;
+}
+
+/* соединяющая линия — превращает список в единую вертикальную композицию */
+.process-list::before {
+  content: '';
+  position: absolute;
+  top: 0.6em;
+  bottom: 0.6em;
+  left: 1.9rem;
+  width: 1px;
+  background: linear-gradient(180deg, var(--color-accent-glow), transparent 95%);
 }
 
 .process-step {
   position: relative;
-  padding-left: var(--space-6);
+  padding-left: var(--space-8);
   counter-increment: step;
 }
 
@@ -499,13 +718,17 @@ button:focus-visible {
   content: counter(step, decimal-leading-zero);
   position: absolute;
   left: 0;
-  top: -0.1em;
-  font-family: var(--font-mono);
-  font-size: 1.25rem;
-  color: var(--color-accent-strong);
+  top: -0.28em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-accent-strong);
+  line-height: 1;
 }
 
 .process-step h3 {
+  font-size: var(--fs-h3);
   margin-bottom: var(--space-1);
 }
 
@@ -514,10 +737,161 @@ button:focus-visible {
    13. ABOUT
    ========================================================================== */
 
+.about-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: var(--space-6);
+  align-items: center;
+}
+
 .about-text {
-  max-width: 720px;
+  max-width: 60ch;
   font-size: var(--fs-body-lg);
   font-weight: 300;
+}
+
+/* Туманные горы — образ постепенного прояснения, вторит смыслу текста:
+   идея, поначалу расплывчатая, обретает чёткую форму. */
+.about-figure {
+  margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border-strong);
+  aspect-ratio: 4 / 5;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.1) brightness(0.82);
+  transition: filter var(--transition-base);
+}
+
+.about-figure:hover img {
+  filter: grayscale(0.5) contrast(1.12) brightness(0.9);
+}
+
+.about-figcaption {
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
+}
+
+
+/* ==========================================================================
+   13b. MANIFESTO — полноширинный фото-брейкер
+   Фотография не иллюстрирует услугу буквально — она держит метафору:
+   туман, оседающий на вершинах, = визуальный шум, уходящий из макета.
+   Изображение выходит за пределы .container на всю ширину секции,
+   градиенты сверху/снизу растворяют его в --color-bg, чтобы блок не
+   выглядел вклеенным баннером, а продолжал общую композицию страницы.
+   ========================================================================== */
+
+.manifesto {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(420px, 56vw, 660px);
+  text-align: center;
+}
+
+.manifesto-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.manifesto-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 38%;
+  filter: grayscale(0.25) contrast(1.12) brightness(0.6);
+  transform: scale(1.06);
+  transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), filter 1.6s ease;
+}
+
+.manifesto.is-visible .manifesto-media img {
+  transform: scale(1);
+  filter: grayscale(0.15) contrast(1.12) brightness(0.68);
+}
+
+/* Растворение фото в фоне сайта сверху/снизу + затемнение по краям
+   для читаемости текста поверх кадра. */
+.manifesto-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, var(--color-bg) 0%, transparent 22%, transparent 78%, var(--color-bg) 100%),
+    radial-gradient(58% 60% at 50% 50%, transparent 30%, rgba(3, 3, 4, 0.55) 100%);
+}
+
+.manifesto-content {
+  position: relative;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.manifesto.is-visible .manifesto-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.manifesto-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+}
+
+.manifesto-quote {
+  max-width: 22ch;
+  margin: 0 auto;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-optical-sizing: auto;
+  font-weight: 420;
+  font-size: clamp(1.5rem, 3.2vw, 2.5rem);
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+  color: var(--color-text-secondary);
+}
+
+.manifesto-quote span {
+  color: var(--color-accent-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .manifesto-media img,
+  .manifesto-content {
+    transition: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .manifesto {
+    min-height: clamp(360px, 90vw, 520px);
+  }
+
+  .manifesto-quote {
+    max-width: 20ch;
+  }
 }
 
 
@@ -527,16 +901,83 @@ button:focus-visible {
 
 .faq-list {
   display: grid;
-  gap: var(--space-3);
 }
 
 .faq-item {
   border-bottom: 1px solid var(--color-border);
-  padding-bottom: var(--space-3);
+}
+
+.faq-item:first-child {
+  border-top: 1px solid var(--color-border);
 }
 
 .faq-question {
-  margin-bottom: var(--space-1);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  padding: var(--space-3) 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  transition: color var(--transition-fast);
+}
+
+.faq-question:hover {
+  color: var(--color-accent-strong);
+}
+
+.faq-icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  font-family: var(--font-mono);
+  color: var(--color-accent-strong);
+}
+
+.faq-icon::before {
+  content: '+';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: transform var(--transition-base), content var(--transition-base);
+}
+
+.faq-item[data-open="true"] .faq-icon::before {
+  content: '−';
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+
+/* Раскрытие без JS-измерения высоты: анимируем grid-template-rows 0fr → 1fr */
+.faq-answer-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 350ms ease;
+}
+
+.faq-item[data-open="true"] .faq-answer-wrap {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer-wrap > .faq-answer-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.faq-answer {
+  padding-bottom: var(--space-3);
+  max-width: 62ch;
 }
 
 
@@ -545,7 +986,26 @@ button:focus-visible {
    ========================================================================== */
 
 .final-cta {
+  position: relative;
   text-align: center;
+  overflow: hidden;
+}
+
+/* Мягкая световая волна на фоне — по мотивам референса с абстрактной
+   графикой, размытая и приглушённая, чтобы не спорить с призывом к действию. */
+.final-cta-decor {
+  position: absolute;
+  inset: -20% -10%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(58% 70% at 30% 60%, var(--color-accent-glow-soft) 0%, transparent 70%),
+    radial-gradient(40% 50% at 78% 30%, rgba(235, 236, 240, 0.16) 0%, transparent 72%);
+  filter: blur(30px);
+}
+
+.final-cta .container {
+  z-index: 1;
 }
 
 .final-cta-title {
@@ -569,9 +1029,48 @@ button:focus-visible {
   justify-content: space-between;
   padding-top: var(--space-4);
   padding-bottom: var(--space-4);
+  gap: var(--space-3);
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
 }
 
 
 /* ==========================================================================
    RESPONSIVE — добавим на этапе 11
    ========================================================================== */
+
+@media (max-width: 860px) {
+  .why-me-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .process-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .process-figure {
+    position: static;
+    aspect-ratio: 16 / 10;
+  }
+
+  .about-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .about-figure {
+    aspect-ratio: 16 / 10;
+    order: -1;
+  }
+
+  .why-me-decor {
+    display: none;
+  }
+
+  .nav-links {
+    display: none;
+  }
+}

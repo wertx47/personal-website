@@ -7,7 +7,7 @@
   <meta name="description" content="Создаю современные сайты для малого бизнеса и частных специалистов: лендинги, сайты компаний, редизайн и индивидуальные веб-проекты.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,7 +17,14 @@
        ========================================================================== -->
   <header class="site-header">
     <div class="container header-inner">
-      <a href="#hero" class="logo">Имя Фамилия</a>
+      <a href="#hero" class="logo">wertx/web</a>
+      <nav class="nav-links">
+        <a href="#services">Услуги</a>
+        <a href="#why-me">Почему я</a>
+        <a href="#process">Процесс</a>
+        <a href="#about">Обо мне</a>
+        <a href="#faq">Вопросы</a>
+      </nav>
       <a href="https://t.me/your_username" class="btn btn-header" target="_blank" rel="noopener">Написать в Telegram</a>
     </div>
   </header>
@@ -28,6 +35,7 @@
          1. HERO
          ========================================================================== -->
     <section id="hero" class="section hero">
+      <div class="hero-horizon" aria-hidden="true"></div>
       <div class="container">
         <h1 class="hero-title">Создаю современные сайты для бизнеса</h1>
         <p class="hero-subtitle">Лендинги, сайты компаний и индивидуальные веб-проекты — от идеи до публикации.</p>
@@ -36,11 +44,22 @@
     </section>
 
     <!-- ==========================================================================
+         БЕГУЩАЯ СТРОКА
+         ========================================================================== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>ДИЗАЙН <i>✦</i> РАЗРАБОТКА <i>✦</i> ИНДИВИДУАЛЬНО <i>✦</i> РЕЗУЛЬТАТ <i>✦</i></span>
+        <span>ДИЗАЙН <i>✦</i> РАЗРАБОТКА <i>✦</i> ИНДИВИДУАЛЬНО <i>✦</i> РЕЗУЛЬТАТ <i>✦</i></span>
+      </div>
+    </div>
+
+    <!-- ==========================================================================
          2. УСЛУГИ
          ========================================================================== -->
     <section id="services" class="section services">
       <div class="container">
-        <h2 class="section-title">Услуги</h2>
+        <span class="eyebrow"><span>01</span> / Услуги</span>
+        <h2 class="section-title">Форматы, которые работают</h2>
 
         <div class="services-grid">
 
@@ -77,7 +96,8 @@
          ========================================================================== -->
     <section id="why-me" class="section why-me">
       <div class="container">
-        <h2 class="section-title">Почему я</h2>
+        <span class="eyebrow"><span>02</span> / Почему я</span>
+        <h2 class="section-title">Прямо. Понятно. Без посредников</h2>
 
         <div class="why-me-grid">
           <div class="why-me-item">
@@ -105,30 +125,38 @@
          ========================================================================== -->
     <section id="process" class="section process">
       <div class="container">
-        <h2 class="section-title">Как проходит работа</h2>
+        <span class="eyebrow"><span>03</span> / Процесс</span>
+        <h2 class="section-title">Шаг за шагом к результату</h2>
 
-        <ol class="process-list">
-          <li class="process-step">
-            <h3>Обсуждение задачи</h3>
-            <p>Обсуждаем цели, целевую аудиторию и пожелания к сайту в Telegram.</p>
-          </li>
-          <li class="process-step">
-            <h3>Предложение и оценка</h3>
-            <p>Определяю объём работ, сроки и стоимость проекта.</p>
-          </li>
-          <li class="process-step">
-            <h3>Разработка</h3>
-            <p>Создаю дизайн и верстку сайта, показываю промежуточные результаты.</p>
-          </li>
-          <li class="process-step">
-            <h3>Правки</h3>
-            <p>Вносим корректировки по вашим замечаниям.</p>
-          </li>
-          <li class="process-step">
-            <h3>Публикация</h3>
-            <p>Размещаю готовый сайт и передаю все необходимые материалы.</p>
-          </li>
-        </ol>
+        <div class="process-inner">
+          <figure class="process-figure">
+            <img src="https://images.unsplash.com/photo-1691472898646-7011d4d0ad55?fm=jpg&q=70&w=1200&auto=format&fit=crop" alt="Винтовая лестница, вид сверху" loading="lazy">
+            <figcaption class="process-figcaption">Каждый виток — новый шаг, но направление одно.</figcaption>
+          </figure>
+
+          <ol class="process-list">
+            <li class="process-step">
+              <h3>Обсуждение задачи</h3>
+              <p>Обсуждаем цели, целевую аудиторию и пожелания к сайту в Telegram.</p>
+            </li>
+            <li class="process-step">
+              <h3>Предложение и оценка</h3>
+              <p>Определяю объём работ, сроки и стоимость проекта.</p>
+            </li>
+            <li class="process-step">
+              <h3>Разработка</h3>
+              <p>Создаю дизайн и верстку сайта, показываю промежуточные результаты.</p>
+            </li>
+            <li class="process-step">
+              <h3>Правки</h3>
+              <p>Вносим корректировки по вашим замечаниям.</p>
+            </li>
+            <li class="process-step">
+              <h3>Публикация</h3>
+              <p>Размещаю готовый сайт и передаю все необходимые материалы.</p>
+            </li>
+          </ol>
+        </div>
       </div>
     </section>
 
@@ -137,10 +165,31 @@
          ========================================================================== -->
     <section id="about" class="section about">
       <div class="container">
-        <h2 class="section-title">Обо мне</h2>
+        <span class="eyebrow"><span>04</span> / Обо мне</span>
+        <h2 class="section-title">Человек, а не агентство</h2>
         <p class="about-text">
           Разрабатываю сайты для малого бизнеса и частных специалистов. Помогаю превратить идею
           в понятный, аккуратный и работающий сайт — без лишней сложности и с фокусом на результат.
+        </p>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         5b. MANIFESTO — фото-брейкер между "Обо мне" и FAQ.
+         Туман, оседающий на горных вершинах, — образ того же принципа,
+         что и в разделе "Почему я": лишнее уходит, остаётся суть.
+         ========================================================================== -->
+    <section class="manifesto">
+      <div class="manifesto-media">
+        <img src="mountains.jpg" alt="Горные вершины, тонущие в тумане" loading="lazy">
+      </div>
+      <div class="manifesto-overlay" aria-hidden="true"></div>
+      <div class="container manifesto-content">
+        <span class="manifesto-label">Взгляд на процесс</span>
+        <p class="manifesto-quote">
+          Лишнее — как туман:<br>
+          скрывает суть, пока не осядет.<br>
+          <span>Хороший сайт — то, что остаётся, когда он расходится.</span>
         </p>
       </div>
     </section>
@@ -150,24 +199,45 @@
          ========================================================================== -->
     <section id="faq" class="section faq">
       <div class="container">
-        <h2 class="section-title">Частые вопросы</h2>
+        <span class="eyebrow"><span>05</span> / Вопросы</span>
+        <h2 class="section-title">Ответы на главное</h2>
 
         <div class="faq-list">
           <div class="faq-item">
-            <h3 class="faq-question">Сколько времени занимает разработка сайта?</h3>
-            <p class="faq-answer">Срок зависит от типа сайта и объёма правок, в среднем от нескольких дней до пары недель.</p>
+            <button class="faq-question" aria-expanded="false">
+              <span>Сколько времени занимает разработка сайта?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer-wrap">
+              <div class="faq-answer-inner"><p class="faq-answer">Срок зависит от типа сайта и объёма правок, в среднем от нескольких дней до пары недель.</p></div>
+            </div>
           </div>
           <div class="faq-item">
-            <h3 class="faq-question">Как происходит оплата?</h3>
-            <p class="faq-answer">Условия оплаты обсуждаются индивидуально при постановке задачи.</p>
+            <button class="faq-question" aria-expanded="false">
+              <span>Как происходит оплата?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer-wrap">
+              <div class="faq-answer-inner"><p class="faq-answer">Условия оплаты обсуждаются индивидуально при постановке задачи.</p></div>
+            </div>
           </div>
           <div class="faq-item">
-            <h3 class="faq-question">Нужно ли мне готовить тексты и фото заранее?</h3>
-            <p class="faq-answer">Это ускорит процесс, но при необходимости можно подготовить материалы совместно в ходе работы.</p>
+            <button class="faq-question" aria-expanded="false">
+              <span>Нужно ли мне готовить тексты и фото заранее?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer-wrap">
+              <div class="faq-answer-inner"><p class="faq-answer">Это ускорит процесс, но при необходимости можно подготовить материалы совместно в ходе работы.</p></div>
+            </div>
           </div>
           <div class="faq-item">
-            <h3 class="faq-question">Как с вами связаться?</h3>
-            <p class="faq-answer">Самый быстрый способ — написать в Telegram, ссылка есть на этой странице.</p>
+            <button class="faq-question" aria-expanded="false">
+              <span>Как с вами связаться?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq-answer-wrap">
+              <div class="faq-answer-inner"><p class="faq-answer">Самый быстрый способ — написать в Telegram, ссылка есть на этой странице.</p></div>
+            </div>
           </div>
         </div>
       </div>
@@ -191,7 +261,10 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <p>&copy; 2026 Имя Фамилия. Все права защищены.</p>
-      <a href="https://t.me/your_username" target="_blank" rel="noopener">Telegram</a>
+      <div class="footer-links">
+        <a href="https://t.me/your_username" target="_blank" rel="noopener">Telegram</a>
+        <a href="#hero">Наверх ↑</a>
+      </div>
     </div>
   </footer>
 
