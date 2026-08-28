@@ -66,6 +66,7 @@ img {
   --font-display: 'Fraunces', 'Georgia', serif;
   --font-body: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  --font-numeric: 'Bebas Neue', sans-serif;
 
   --fs-h1: clamp(3.25rem, 8vw, 7.25rem);
   --fs-h2: clamp(2.25rem, 4.5vw, 3.5rem);
@@ -538,100 +539,233 @@ button:focus-visible {
 
 /* ==========================================================================
    10. SERVICES
-   Асимметричная композиция вместо ряда одинаковых карточек: смещение по
-   вертикали, разные скругления и интенсивность акцента на каждой карточке.
+   Editorial Service List: не карточки, а крупные горизонтальные строки —
+   [номер] [название + описание] [цена] [стрелка] — с тонким разделителем
+   между ними. Номер работает как декоративная типографская деталь
+   (обводка вместо заливки), при наведении строка "оживает" целиком:
+   номер, заголовок, цена и стрелка синхронно усиливаются.
    ========================================================================== */
 
 .services-grid {
   display: flex;
   flex-direction: column;
-  counter-reset: service;
 }
 
-.service-card {
+.service-row {
   position: relative;
-  counter-increment: service;
   display: grid;
-  grid-template-columns: 3.5rem 1fr auto;
-  align-items: baseline;
+  grid-template-columns: clamp(2.75rem, 6vw, 4.5rem) 1fr auto;
+  align-items: center;
   column-gap: var(--space-4);
   padding: var(--space-4) var(--space-2);
   border-bottom: 1px solid var(--color-border);
-  background: linear-gradient(90deg, var(--color-accent-glow-soft), transparent 40%);
+  background: linear-gradient(90deg, var(--color-accent-glow-soft), transparent 45%);
   background-size: 0% 100%;
   background-repeat: no-repeat;
   transition: background-size var(--transition-base), padding-left var(--transition-base);
+
+  /* Стартовое состояние для staggered reveal — включается из JS,
+     когда секция появляется во вьюпорте (см. script.js). */
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    background-size var(--transition-base),
+    padding-left var(--transition-base),
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.service-card:first-child {
+.service-row:first-child {
   border-top: 1px solid var(--color-border);
 }
 
-.service-card::before {
-  content: counter(service, decimal-leading-zero);
-  font-family: var(--font-mono);
-  font-size: var(--fs-small);
-  color: var(--color-text-muted);
-  transition: color var(--transition-base);
+.services-grid.is-visible .service-row {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.service-card:hover {
+.services-grid.is-visible .service-row:nth-child(1) { transition-delay: 0s; }
+.services-grid.is-visible .service-row:nth-child(2) { transition-delay: 0.09s; }
+.services-grid.is-visible .service-row:nth-child(3) { transition-delay: 0.18s; }
+.services-grid.is-visible .service-row:nth-child(4) { transition-delay: 0.27s; }
+
+.service-row:hover {
   background-size: 100% 100%;
   padding-left: var(--space-3);
 }
 
-.service-card:hover::before {
-  color: var(--color-accent-strong);
+/* Тонкий разделитель поверх border-bottom, который на hover
+   "проявляется" из центра — тот самый лёгкий абстрактный акцент. */
+.service-row::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--color-accent-glow);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.service-row:hover::after {
+  transform: scaleX(1);
+}
+
+/* Крупный номер-обводка — декоративный, не смысловой элемент.
+   Заливка отсутствует (только контур), поэтому цифра читается как
+   графика, а не как порядковый список. */
+.service-num {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  font-family: var(--font-numeric);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-text-muted);
+  transition: -webkit-text-stroke-color var(--transition-base), transform var(--transition-base);
+  user-select: none;
+}
+
+@supports not ((-webkit-text-stroke: 1px black)) {
+  .service-num {
+    color: var(--color-text-muted);
+  }
+}
+
+.service-row:hover .service-num {
+  -webkit-text-stroke-color: var(--color-accent-strong);
+  transform: translateX(-2px);
+}
+
+.service-main {
+  grid-column: 2;
+  min-width: 0;
 }
 
 .service-title {
-  grid-column: 2;
-  font-size: var(--fs-h3);
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  letter-spacing: -0.015em;
+  transition: transform var(--transition-base), color var(--transition-base);
+}
+
+.service-row:hover .service-title {
+  transform: translateX(8px);
+  color: var(--color-accent-strong);
 }
 
 .service-desc {
-  grid-column: 2;
-  grid-row: 2;
-  max-width: 52ch;
+  max-width: 46ch;
   margin-top: var(--space-1);
+  font-size: var(--fs-small);
+  color: var(--color-text-muted);
 }
 
 .service-price {
   grid-column: 3;
-  grid-row: 1;
   font-family: var(--font-mono);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
   color: var(--color-accent);
   letter-spacing: -0.01em;
   white-space: nowrap;
+  transition: color var(--transition-base);
+}
+
+.service-row:hover .service-price {
+  color: var(--color-accent-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-row {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .service-row:hover .service-num,
+  .service-row:hover .service-title {
+    transform: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .service-row {
+    grid-template-columns: 2.75rem 1fr;
+    grid-template-rows: auto auto;
+    row-gap: var(--space-1);
+    column-gap: var(--space-3);
+  }
+
+  .service-num {
+    grid-row: 1;
+  }
+
+  .service-main {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .service-price {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .service-row:hover {
+    padding-left: var(--space-2);
+  }
+
+  .service-row:hover .service-title {
+    transform: translateX(4px);
+  }
 }
 
 
 /* ==========================================================================
    11. WHY ME
+   Editorial Principles / Manifesto: крупный асимметричный заголовок-
+   statement + четыре принципа как одна длинная система строк (в духе
+   Services), без карточек, рамок и иконок. Тонкая вертикальная линия
+   проходит через номера и "проявляется" по мере скролла секции —
+   акцент здесь не цена, как в Услугах, а стрелка.
    ========================================================================== */
 
 .why-me {
   position: relative;
-  overflow: hidden;
-}
-
-/* Светящиеся «трубки» на фоне — по мотивам референса с абстрактной
-   графикой обоев. Компактные, у самого края секции, не спорят с текстом. */
-.why-me-decor {
-  position: absolute;
-  top: -4%;
-  right: -6%;
-  width: min(24vw, 320px);
-  height: 60%;
-  z-index: 0;
-  pointer-events: none;
-  filter: blur(3px);
-  opacity: 0.22;
 }
 
 .why-me .container {
   z-index: 1;
 }
+
+/* Заголовок-statement: крупный, editorial, с лёгким асимметричным
+   сдвигом средней строки. Появляется отдельно, раньше списка. */
+.why-me-heading {
+  margin: 0 0 var(--space-6);
+  padding-top: var(--space-3);
+  font-size: clamp(2.5rem, 6.5vw, 5rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+
+.why-me-heading-line {
+  display: block;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.why-me.is-visible .why-me-heading-line {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.why-me-heading-line--1 { transition-delay: 0.05s; }
+.why-me-heading-line--2 { margin-left: clamp(0px, 8vw, 110px); transition-delay: 0.16s; }
+.why-me-heading-line--3 { transition-delay: 0.27s; }
 
 .why-me-grid {
   display: grid;
@@ -641,6 +775,20 @@ button:focus-visible {
 
 .why-me-item h3 {
   margin-bottom: var(--space-1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .why-me-heading-line {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .why-me-heading-line--2 {
+    margin-left: 0;
+  }
 }
 
 
@@ -697,13 +845,22 @@ button:focus-visible {
   position: relative;
 }
 
-/* соединяющая линия — превращает список в единую вертикальную композицию */
+/* соединяющая линия — превращает список в единую вертикальную композицию.
+   Проходит строго по центру цифр: у .process-step::before задана
+   фиксированная ширина (--process-number-width) и text-align: center,
+   поэтому середина этого блока всегда совпадает с серединой линии —
+   независимо от того, что "01"/"02" визуально чуть уже "0" в разных
+   начертаниях и что font-size у цифр "плавает" через clamp(). */
+.process-list {
+  --process-number-width: 3.4rem;
+}
+
 .process-list::before {
   content: '';
   position: absolute;
   top: 0.6em;
   bottom: 0.6em;
-  left: 1.9rem;
+  left: calc(var(--process-number-width) / 2);
   width: 1px;
   background: linear-gradient(180deg, var(--color-accent-glow), transparent 95%);
 }
@@ -718,10 +875,13 @@ button:focus-visible {
   content: counter(step, decimal-leading-zero);
   position: absolute;
   left: 0;
-  top: -0.28em;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  top: -0.15em;
+  width: var(--process-number-width);
+  text-align: center;
+  font-family: var(--font-numeric);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 3.6vw, 3rem);
+  letter-spacing: 0.02em;
   color: transparent;
   -webkit-text-stroke: 1px var(--color-accent-strong);
   line-height: 1;
@@ -804,10 +964,38 @@ button:focus-visible {
   text-align: center;
 }
 
+/* Фото не затемняется по краям — оно там становится прозрачным.
+   Маска (radial-gradient) управляет альфа-каналом самого изображения:
+   центр непрозрачен, к краям opacity плавно падает до 0, и сквозь
+   исчезающие пиксели фотографии становится виден настоящий фон
+   страницы (var(--color-bg) + мягкие световые пятна body::before/after),
+   а не нарисованный поверх плоский цвет. */
 .manifesto-media {
   position: absolute;
   inset: 0;
   z-index: 0;
+  -webkit-mask-image: radial-gradient(
+    ellipse farthest-side at 50% 50%,
+    #000 0%,
+    #000 36%,
+    rgba(0, 0, 0, 0.82) 54%,
+    rgba(0, 0, 0, 0.42) 74%,
+    rgba(0, 0, 0, 0.12) 90%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse farthest-side at 50% 50%,
+    #000 0%,
+    #000 36%,
+    rgba(0, 0, 0, 0.82) 54%,
+    rgba(0, 0, 0, 0.42) 74%,
+    rgba(0, 0, 0, 0.12) 90%,
+    transparent 100%
+  );
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
 }
 
 .manifesto-media img {
@@ -825,16 +1013,15 @@ button:focus-visible {
   filter: grayscale(0.15) contrast(1.12) brightness(0.68);
 }
 
-/* Растворение фото в фоне сайта сверху/снизу + затемнение по краям
-   для читаемости текста поверх кадра. */
+/* .manifesto-overlay оставлен в разметке нетронутым (HTML не менялся),
+   но больше не рисует градиент поверх фото — прозрачность теперь даёт
+   не покраска краёв, а маска на .manifesto-media выше. Класс намеренно
+   пуст, а не удалён, чтобы не трогать index.html. */
 .manifesto-overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background:
-    linear-gradient(180deg, var(--color-bg) 0%, transparent 22%, transparent 78%, var(--color-bg) 100%),
-    radial-gradient(58% 60% at 50% 50%, transparent 30%, rgba(3, 3, 4, 0.55) 100%);
 }
 
 .manifesto-content {
@@ -1044,10 +1231,6 @@ button:focus-visible {
    ========================================================================== */
 
 @media (max-width: 860px) {
-  .why-me-grid {
-    grid-template-columns: 1fr;
-  }
-
   .process-inner {
     grid-template-columns: 1fr;
   }
@@ -1064,10 +1247,6 @@ button:focus-visible {
   .about-figure {
     aspect-ratio: 16 / 10;
     order: -1;
-  }
-
-  .why-me-decor {
-    display: none;
   }
 
   .nav-links {

@@ -17,6 +17,39 @@ document.querySelectorAll('.faq-question').forEach((button) => {
 
 
 // ==========================================================================
+// WHY ME — HEADING REVEAL
+// Заголовок появляется один раз при входе секции во вьюпорт (тайминг
+// строк задан через transition-delay в style.css).
+// ==========================================================================
+
+const whyMeSection = document.querySelector('.why-me');
+
+if (whyMeSection && 'IntersectionObserver' in window) {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReducedMotion) {
+    whyMeSection.classList.add('is-visible');
+  } else {
+    const whyMeObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            whyMeSection.classList.add('is-visible');
+            whyMeObserver.unobserve(whyMeSection);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    whyMeObserver.observe(whyMeSection);
+  }
+} else if (whyMeSection) {
+  whyMeSection.classList.add('is-visible');
+}
+
+
+// ==========================================================================
 // MANIFESTO REVEAL
 // Текст на фото-блоке "проявляется", когда секция входит во вьюпорт —
 // усиливает метафору тумана, который рассеивается. Один раз, без
@@ -48,4 +81,39 @@ if (manifesto && 'IntersectionObserver' in window) {
   }
 } else if (manifesto) {
   manifesto.classList.add('is-visible');
+}
+
+
+// ==========================================================================
+// SERVICES STAGGERED REVEAL
+// Строки Editorial Service List проявляются по очереди (01 → 02 → 03 → 04)
+// при входе секции во вьюпорт. Порядок задержки — чистым CSS
+// (nth-child + transition-delay в style.css), здесь только переключение
+// класса, один раз, без анимации при prefers-reduced-motion.
+// ==========================================================================
+
+const servicesGrid = document.querySelector('.services-grid');
+
+if (servicesGrid && 'IntersectionObserver' in window) {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReducedMotion) {
+    servicesGrid.classList.add('is-visible');
+  } else {
+    const servicesObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            servicesGrid.classList.add('is-visible');
+            servicesObserver.unobserve(servicesGrid);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    servicesObserver.observe(servicesGrid);
+  }
+} else if (servicesGrid) {
+  servicesGrid.classList.add('is-visible');
 }
