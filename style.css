@@ -311,17 +311,16 @@ button:focus-visible {
   box-shadow: 0 12px 46px var(--color-accent-glow);
 }
 
-.btn-header {
-  background-color: rgba(255, 255, 255, 0.03);
-  color: var(--color-text-primary);
-  border-color: var(--color-border-strong);
-  backdrop-filter: blur(8px);
-  padding: 10px 20px;
+.header-cta {
+  font-family: var(--font-mono);
   font-size: var(--fs-small);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: color var(--transition-base);
 }
 
-.btn-header:hover {
-  border-color: var(--color-accent);
+.header-cta:hover {
   color: var(--color-accent-strong);
 }
 
@@ -1337,6 +1336,14 @@ button:focus-visible {
 
   .process-figure {
     position: static;
+  }
+
+  /* aspect-ratio переносим на сам img, а не на .process-figure:
+     на фигуре он "запирал" всю высоту блока под фото (height: 100% у img
+     съедало 100% этой фиксированной высоты), из-за чего figcaption
+     оставалась без места и обрезалась через overflow: hidden. */
+  .process-figure img {
+    height: auto;
     aspect-ratio: 16 / 10;
   }
 
@@ -1367,8 +1374,25 @@ button:focus-visible {
     gap: var(--space-4);
   }
 
+  /* Хедер на мобильном: логотип и кнопка остаются в верхней строке,
+     ссылки навигации переносятся компактной строкой под них — вместо
+     того чтобы просто исчезать. */
+  .header-inner {
+    flex-wrap: wrap;
+    row-gap: 2px;
+  }
+
   .nav-links {
-    display: none;
+    order: 3;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px var(--space-3);
+    font-size: 0.75rem;
+  }
+
+  .header-cta {
+    font-size: 0.75rem;
   }
 }
 
@@ -1410,16 +1434,20 @@ button:focus-visible {
 @media (max-width: 400px) {
   .header-inner {
     flex-wrap: wrap;
-    row-gap: var(--space-1);
+    row-gap: 2px;
   }
 
   .logo {
     font-size: 0.95rem;
   }
 
-  .btn-header {
-    padding: 9px 16px;
-    font-size: 0.8125rem;
+  .header-cta {
+    font-size: 0.6875rem;
+  }
+
+  .nav-links {
+    gap: 4px var(--space-2);
+    font-size: 0.6875rem;
   }
 }
 
