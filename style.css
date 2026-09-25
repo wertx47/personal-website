@@ -1379,7 +1379,9 @@ button:focus-visible {
      того чтобы просто исчезать. */
   .header-inner {
     flex-wrap: wrap;
-    row-gap: 2px;
+    row-gap: 4px;
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
   }
 
   .nav-links {
@@ -1387,7 +1389,7 @@ button:focus-visible {
     width: 100%;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 4px var(--space-3);
+    gap: 8px var(--space-3);
     font-size: 0.75rem;
   }
 
@@ -1406,20 +1408,164 @@ button:focus-visible {
     padding: 0 var(--space-2);
   }
 
+  /* Плотность секций */
   .section {
-    padding: var(--space-6) 0;
+    padding: 44px 0;
+  }
+
+  .section-title {
+    margin-bottom: 32px;
+    padding-top: 16px;
+  }
+
+  .eyebrow {
+    margin-bottom: 10px;
+  }
+
+  /* Компактнее основной текст и межстрочный интервал (header не затронут —
+     использует свои явные размеры, заданные в px/rem, а не эти токены). */
+  body {
+    font-size: 0.875rem;
+  }
+
+  p {
+    line-height: 1.5;
+  }
+
+  /* Hero — чуть меньше пустого пространства сверху/снизу, лёгкое
+     уменьшение заголовка и вторичного текста. Сама композиция не меняется. */
+  .hero {
+    min-height: 84vh;
+    padding-top: 44px;
+    padding-bottom: 44px;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    line-height: 0.98;
+  }
+
+  .hero-subtitle {
+    margin: 16px 0 28px;
+    font-size: 1rem;
+  }
+
+  /* Услуги — компактнее карточки, сохраняя композицию (номер / стрелка / линии) */
+  .service-row {
+    padding: 20px 8px;
+  }
+
+  .service-row:hover {
+    padding-left: var(--space-2);
+  }
+
+  .service-num {
+    font-size: 2rem;
+  }
+
+  .service-title {
+    font-size: 1.6rem;
+  }
+
+  .service-desc {
+    margin-top: 6px;
+    font-size: 0.8125rem;
+  }
+
+  .service-features {
+    padding-top: 12px;
+    gap: 6px;
+    font-size: 0.8125rem;
+  }
+
+  .service-option {
+    margin-top: 10px;
+    font-size: 0.8125rem;
+  }
+
+  .service-note {
+    margin-top: 4px;
+    font-size: 0.8125rem;
+  }
+
+  /* Почему я */
+  .why-me-heading {
+    margin-bottom: 32px;
+    padding-top: 16px;
+    font-size: 2.2rem;
+  }
+
+  .why-me-grid {
+    gap: 20px;
+  }
+
+  .why-me-item h3 {
+    margin-bottom: 4px;
+    font-size: 1.1rem;
+  }
+
+  /* Процесс */
+  .process-inner {
+    gap: 28px;
   }
 
   .process-list {
-    --process-number-width: 2.25rem;
+    --process-number-width: 2rem;
+    gap: 40px;
   }
 
   .process-step {
-    padding-left: var(--space-5);
+    padding-left: 42px;
   }
 
-  .why-me-heading {
-    margin-bottom: var(--space-5);
+  .process-step h3 {
+    margin-bottom: 2px;
+    font-size: 1.1rem;
+  }
+
+  .process-figcaption {
+    padding: 8px 12px;
+  }
+
+  /* Обо мне */
+  .about-inner {
+    gap: 28px;
+  }
+
+  .about-text {
+    font-size: 1rem;
+  }
+
+  .about-figcaption {
+    padding: 8px 12px;
+  }
+
+  /* Манифест-брейкер между "Обо мне" и FAQ */
+  .manifesto {
+    min-height: clamp(300px, 78vw, 420px);
+  }
+
+  .manifesto-label {
+    margin-bottom: 14px;
+  }
+
+  .manifesto-quote {
+    font-size: 1.35rem;
+  }
+
+  /* Вопросы */
+  .faq-question {
+    padding: 16px 0;
+    font-size: 1.1rem;
+  }
+
+  .faq-answer {
+    padding-bottom: 14px;
+  }
+
+  /* Финальный CTA — кнопку не уменьшаем, только отступ над ней */
+  .final-cta-title {
+    margin-bottom: 20px;
   }
 }
 
@@ -1434,7 +1580,9 @@ button:focus-visible {
 @media (max-width: 400px) {
   .header-inner {
     flex-wrap: wrap;
-    row-gap: 2px;
+    row-gap: 4px;
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
   }
 
   .logo {
@@ -1446,7 +1594,7 @@ button:focus-visible {
   }
 
   .nav-links {
-    gap: 4px var(--space-2);
+    gap: 6px var(--space-2);
     font-size: 0.6875rem;
   }
 }
