@@ -17,6 +17,24 @@ document.querySelectorAll('.faq-question').forEach((button) => {
 
 
 // ==========================================================================
+// SERVICES — РАСКРЫТИЕ КАРТОЧЕК 01 И 02
+// Та же механика, что и в FAQ: переключение data-open на строке услуги,
+// высота анимируется CSS (grid-template-rows). Карточек 03 и 04 это
+// не касается — у них нет .service-toggle.
+// ==========================================================================
+
+document.querySelectorAll('.service-toggle').forEach((button) => {
+  button.addEventListener('click', () => {
+    const row = button.closest('.service-row--expandable');
+    const isOpen = row.getAttribute('data-open') === 'true';
+
+    row.setAttribute('data-open', String(!isOpen));
+    button.setAttribute('aria-expanded', String(!isOpen));
+  });
+});
+
+
+// ==========================================================================
 // WHY ME — HEADING REVEAL
 // Заголовок появляется один раз при входе секции во вьюпорт (тайминг
 // строк задан через transition-delay в style.css).
